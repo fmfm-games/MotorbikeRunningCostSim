@@ -1,0 +1,180 @@
+<html>
+
+<head>
+    <title>test</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="form_update.js"></script>
+
+</head>
+
+<body>
+
+    <div class="px-5">
+        <h2 class="pt-5">バイク買うべき？借りるべき？シミュレータ</h2>
+
+
+        <form>
+
+            <h3 class="pt-5">バイクの情報</h3>
+            <div class="row">
+                
+                
+                <div class="col">
+                    <label class="form-label">排気量</label>
+                    <select class="form-select" aria-label="Default select example" id="haiki_ryou" disabled="true">
+                        <option value="1">250cc</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                </div>
+                <div class="col">
+                    <label class="form-label">燃費 [km/L]</label>
+                    <input type="text" class="form-control" value="30", onchange=UpdateGasCost() id="nenpi">
+                </div>
+                
+            </div>
+
+
+
+            <h3 class="pt-5">どれくらい使う？</h3>
+            <div class="row">
+                <div class="col">
+                    <label class="form-label">使用期間</label>
+                    <input type="text" class="form-control" value="12" onchange=ChangeUseUnit() id="n_use_period">
+                </div>
+                <div class="col">
+                    <label class="form-label">使用期間（単位）</label>
+                    <select class="form-select" aria-label="Default select example" id="n_use_unit" onchange="ChangeUseUnit()">
+                        <option value="年">年</option>
+                        <option value="月">ヵ月</option>
+                        <option value="日">日</option>
+                    </select>
+                </div>
+                
+                <div class="col">
+                    <label class="form-label" id="use_per_period_label">乗る回数 [回/年]</label>
+                    <input type="text" class="form-control" value="4" id="use_per_period">
+                </div>
+                <div class="col">
+                    <label class="form-label">一回あたりの移動距離 [km]</label>
+                    <input type="text" class="form-control" value="30", onchange=UpdateGasCost() id="kyori_per_once">
+                </div>
+                
+            </div>
+
+            <h3 class="pt-5">購入・レンタル共通コスト</h3>
+            <div class="row">
+                
+                <div class="col">
+                    <label class="form-label">ヘルメット等ギア [円]</label>
+                    <input type="text" class="form-control" value="50000" id="riding_gear_cost">
+                </div>
+                <div class="col">
+                    <label class="form-label">ガソリン代金 [円/L]</label>
+                    <input type="text" class="form-control" value="200", onchange=UpdateGasCost() id="gas_cost_per_L">
+                </div>
+                <div class="col">
+                    <label class="form-label">移動に必要なガソリン量 [L/回]</label>
+                    <input type="text" class="form-control" value="", disabled="true" onchange=UpdateGasCost() id="required_amount_of_gas">
+                </div>
+                <div class="col">
+                    <label class="form-label">ガソリン代金 [円/回]</label>
+                    <input type="text" class="form-control" value="" disabled="true" id="gas_cost_per_once">
+                </div>
+                
+            </div>
+
+            <h3 class="pt-5">購入・維持するときのコスト</h3>
+            <div class="row">
+                
+                <div class="col">
+                    <label class="form-label">車両代金 [万円]</label>
+                    <input type="text" class="form-control" value="60" id="sharyou_daikin">
+                </div>
+                <div class="col">
+                    <label class="form-label" id="chusha_cost_per_period_label">駐車場代金 [円/月]</label>
+                    <input type="text" class="form-control" value="10000" id="chusha_cost_per_period">
+                </div>
+                <div class="col">
+                    <label class="form-label" id="maintain_cost_per_period_label">メンテナンスコスト [円/年]</label>
+                    <input type="text" class="form-control" value="20000" id="maintain_cost_per_period">
+                </div>
+                <div class="col">
+                    <label class="form-label" id="ninni_hoken_per_unit_label">任意保険代金 [円/年]</label>
+                    <input type="text" class="form-control" value="28000" id="ninni_hoken_per_unit">
+                </div>
+                
+                
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label class="form-label" id="jibaiseki_hoken_label">自賠責保険（平均） [円/年]</label>
+                    <input type="text" class="form-control" value="7100" disabled="true" id="jibaiseki_hoken">
+                </div>
+                
+                <div class="col">
+                    <label class="form-label">自動車重量税 [円/購入]</label>
+                    <input type="text" class="form-control" value="4900" disabled="true" id="jidousha_juryo_tax">
+                </div>
+                <div class="col">
+                    <label class="form-label">軽自動車税 [円/年]</label>
+                    <input type="text" class="form-control" value="3600" disabled="true" id="keijidousha_tax">
+                </div>
+                <div class="col">
+                    <label class="form-label">車両売却収入 [%]</label>
+                    <input type="text" class="form-control" value="30" id="sharyou_daikin_baikyaku">
+                </div>
+                
+            </div>
+
+
+            <h3 class="pt-5">レンタルするときのコスト</h3>
+            <div class="row">
+                
+                <div class="col">
+                    <label class="form-label">会員料金 [円/月]</label>
+                    <input type="text" class="form-control" value="1000" id="kaihi_per_month">
+                </div>
+                <div class="col">
+                    <label class="form-label">車両レンタル代金 [円/回]</label>
+                    <input type="text" class="form-control" value="12000" id="rental_cost_per_once">
+                </div>
+                
+            </div>
+                
+            </div>
+
+
+        </form>
+
+    </div>
+
+
+
+    <div class="px-5 pt-5">
+        <canvas id="myChart" class="pt-5"></canvas>
+    </div>
+
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="main.js"></script>
+    <script>
+        ChangeUseUnit();
+        UpdateGasCost();
+        DrawGraph()
+    </script>
+
+    <div class="mx-auto p-5" style="width: 200px;">
+        <button type="button" class="btn btn-primary" onclick=DrawGraph()>再描画</button>
+    </div>
+
+    
+
+</body>
+
+</html>
